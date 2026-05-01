@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Are You Awake?</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D49A;
+    --parchment: #F5F0E8;
+    --border: rgba(201,168,76,0.25);
+    --bg: #0D0A05;
+    --font-display: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+    --font-body: Georgia, 'Times New Roman', serif;
+  }
+
+  body {
+    width: 640px;
+    height: 400px;
+    overflow: hidden;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse at 30% 0%, rgba(201,168,76,0.08) 0%, transparent 65%);
+    color: var(--parchment);
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top-bar {
+    background: rgba(201,168,76,0.06);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .top-title {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .top-author {
+    font-size: 11px;
+    color: var(--gold-light);
+    font-style: italic;
+  }
+
+  .columns {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* LEFT — countdown */
+  .left {
+    width: 240px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 16px;
+    text-align: center;
+  }
+
+  .tagline-small {
+    font-family: var(--font-display);
+    font-size: 10px;
+    color: var(--parchment);
+    letter-spacing: 0.06em;
+    opacity: 0.8;
+    margin-bottom: 3px;
+  }
+  .tagline-big {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .days-num {
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .days-label {
+    font-family: var(--font-display);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-top: 4px;
+    margin-bottom: 10px;
+  }
+  .target-name {
+    font-size: 11px;
+    color: var(--parchment);
+    font-style: italic;
+    margin-bottom: 2px;
+  }
+  .target-date {
+    font-family: var(--font-display);
+    font-size: 10px;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .calendar-note {
+    font-size: 9.5px;
+    color: var(--parchment);
+    font-style: italic;
+    line-height: 1.6;
+    opacity: 0.75;
+  }
+
+  /* RIGHT — milestones + buttons */
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .milestones {
+    flex: 1;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .milestone {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+  .milestone:last-child { border-bottom: none; }
+
+  .ms-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .dot-ab { background: #7B72E0; }
+  .dot-rain { background: #2DC995; }
+  .dot-rapture { background: var(--gold); box-shadow: 0 0 5px rgba(201,168,76,0.5); }
+  .dot-kingdom { background: #C94040; }
+
+  .ms-body { flex: 1; }
+  .ms-title {
+    font-size: 12px;
+    color: var(--parchment);
+    line-height: 1.3;
+    margin-bottom: 1px;
+  }
+  .ms-date {
+    font-family: var(--font-display);
+    font-size: 10px;
+    color: var(--gold-light);
+    letter-spacing: 0.03em;
+  }
+  .ms-days {
+    font-family: var(--font-display);
+    font-size: 11px;
+    color: var(--gold);
+    float: right;
+  }
+
+  .footer {
+    padding: 8px 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .today-line {
+    font-size: 10px;
+    color: var(--gold-light);
+    font-style: italic;
+    text-align: center;
+    opacity: 0.6;
+    margin-bottom: 2px;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 7px 10px;
+    border-radius: 3px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-primary {
+    background: var(--gold);
+    color: #0D0A05;
+    font-weight: 600;
+  }
+  .btn-secondary {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--parchment);
+  }
+  .btn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <span class="top-title">Prophetic Timeline</span>
+  <span class="top-author">C. Luke Humphreys</span>
+</div>
+
+<div class="columns">
+
+  <div class="left">
+    <p class="tagline-small">The question isn't "can anyone know?"</p>
+    <p class="tagline-big">It's "are you awake?"</p>
+    <div class="days-num" id="cd-days">—</div>
+    <div class="days-label">Days Remaining</div>
+    <p class="target-name">Until the Abomination of Desolation</p>
+    <p class="target-date">March 27–28, 2027</p>
+    <p class="calendar-note">
+      While none of us knows the precise day and hour,
+      the appointed window is sundown Mar 27 – sundown Mar 28.
+      On the Hebrew calendar, a day begins at sundown — and we are watching.
+    </p>
+  </div>
+
+  <div class="right">
+    <div class="milestones" id="milestones"></div>
+    <div class="footer">
+      <p class="today-line" id="today-line">—</p>
+      <div class="btn-row">
+        <a class="btn btn-secondary" href="https://www.youtube.com/playlist?list=PLgVUI1kVoFR6Z1ExwkERSJ7GupgDZps6z" target="_blank">▶ Watch</a>
+        <a class="btn btn-secondary" href="https://www.amazon.com/dp/B0GW39SLNB" target="_blank">📖 Get the Book</a>
+      </div>
+      <a class="btn btn-primary" href="https://www.youtube.com/@purelife2030" target="_blank">Visit purelife2030</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
