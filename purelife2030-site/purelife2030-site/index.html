@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prophetic Timeline — Teaching History Before It Happens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D49A;
+    --gold-dark: #8B6914;
+    --parchment: #F5F0E8;
+    --parchment-dark: #EDE5D0;
+    --ink: #1A1209;
+    --ink-mid: #3D2E12;
+    --ink-light: #6B5435;
+    --red-seal: #8B1A1A;
+    --bg-dark: #0D0A05;
+    --border: rgba(201, 168, 76, 0.3);
+  }
+
+  body {
+    background-color: #0D0A05;
+    background-image:
+      radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(201,168,76,0.015) 60px, rgba(201,168,76,0.015) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(201,168,76,0.015) 60px, rgba(201,168,76,0.015) 61px);
+    color: var(--parchment);
+    font-family: 'EB Garamond', Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem 4rem;
+  }
+
+  .container { width: 100%; max-width: 680px; }
+
+  /* HEADER */
+  .header { text-align: center; margin-bottom: 3rem; }
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .main-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--parchment);
+    margin-bottom: 0.75rem;
+  }
+  .main-title span { color: var(--gold); }
+  .subtitle {
+    font-size: 17px;
+    color: var(--gold-light);
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  .gold-line {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+  }
+
+  /* MAIN COUNTDOWN */
+  .main-target {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .target-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .target-event {
+    font-size: 20px;
+    color: var(--parchment);
+    margin-bottom: 0.25rem;
+  }
+  .target-ref {
+    font-size: 13px;
+    color: var(--gold-light);
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  .countdown-single {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 16px 22px;
+    background: rgba(201,168,76,0.04);
+    position: relative;
+  }
+  .countdown-single::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .cd-num {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(52px, 12vw, 80px);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+    letter-spacing: -0.02em;
+  }
+  .cd-unit {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-top: 10px;
+    display: block;
+  }
+
+  .today-line {
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-light);
+    color: rgba(201,168,76,0.5);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+  }
+
+  /* TIMELINE */
+  .timeline-section { margin-bottom: 2.5rem; }
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 130px;
+    top: 12px; bottom: 12px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+    opacity: 0.25;
+  }
+
+  .milestone {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+  .milestone:last-child { border-bottom: none; }
+
+  .ms-date {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: var(--gold-light);
+    width: 120px;
+    flex-shrink: 0;
+    text-align: right;
+    padding-top: 3px;
+    opacity: 0.8;
+    line-height: 1.4;
+  }
+  .ms-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+    position: relative;
+    z-index: 1;
+  }
+  .ms-dot.today-dot { background: rgba(201,168,76,0.3); border: 1px solid var(--gold); }
+  .ms-dot.ab { background: #534AB7; box-shadow: 0 0 8px rgba(83,74,183,0.5); }
+  .ms-dot.rain { background: #1D9E75; box-shadow: 0 0 8px rgba(29,158,117,0.5); }
+  .ms-dot.rapture { background: var(--gold); box-shadow: 0 0 10px rgba(201,168,76,0.6); }
+  .ms-dot.kingdom { background: var(--red-seal); box-shadow: 0 0 8px rgba(139,26,26,0.5); }
+
+  .ms-content { flex: 1; }
+  .ms-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--parchment);
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+  .ms-desc {
+    font-size: 13px;
+    color: var(--gold-light);
+    font-style: italic;
+    opacity: 0.75;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .ms-meta {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: rgba(201,168,76,0.5);
+  }
+  .ms-days { color: var(--gold); font-weight: 500; }
+
+  /* LINKS */
+  .links-section { margin-bottom: 2.5rem; }
+  .links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .link-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+    text-decoration: none;
+    color: var(--parchment);
+    background: rgba(201,168,76,0.03);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .link-card:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: rgba(201,168,76,0.6);
+  }
+  .link-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .icon-yt { background: rgba(139,26,26,0.3); border: 1px solid rgba(139,26,26,0.4); }
+  .icon-amz { background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); }
+  .link-text-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--gold-light);
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+  .link-text-title { font-size: 14px; color: var(--parchment); line-height: 1.3; margin-top: 1px; }
+
+  /* EMAIL CAPTURE */
+  .email-section {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    background: rgba(201,168,76,0.03);
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .email-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .email-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--parchment);
+    margin-bottom: 6px;
+  }
+  .email-sub {
+    font-size: 14px;
+    color: var(--gold-light);
+    font-style: italic;
+    opacity: 0.8;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .email-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .email-input {
+    flex: 1;
+    min-width: 200px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 3px;
+    padding: 10px 14px;
+    color: var(--parchment);
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-input::placeholder { color: rgba(201,168,76,0.3); }
+  .email-input:focus { border-color: var(--gold); }
+  .email-btn {
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .email-btn:hover { background: var(--gold-light); }
+  .email-privacy {
+    font-size: 12px;
+    color: rgba(201,168,76,0.4);
+    font-style: italic;
+    margin-top: 10px;
+  }
+  .email-success {
+    display: none;
+    text-align: center;
+    padding: 12px;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(201,168,76,0.3);
+    font-style: italic;
+    line-height: 1.8;
+  }
+  .footer a { color: rgba(201,168,76,0.5); text-decoration: none; }
+  .footer a:hover { color: var(--gold); }
+
+  @media (max-width: 500px) {
+    .links-grid { grid-template-columns: 1fr; }
+    .timeline::before { left: 90px; }
+    .ms-date { width: 80px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <p class="eyebrow">C. Luke Humphreys</p>
+    <h1 class="main-title">Teaching History<br><span>Before It Happens</span></h1>
+    <p class="subtitle">What the Lord Revealed About the Days Ahead</p>
+    <div class="gold-line"></div>
+  </header>
+
+  <div style="text-align:center; margin-bottom: 2rem; padding: 0 0.5rem;">
+    <p style="font-family:'Cinzel',serif; font-size:clamp(18px,4vw,26px); font-weight:600; color:var(--parchment); line-height:1.3; margin-bottom:0.5rem;">
+      The question isn't "can anyone know?"
+    </p>
+    <p style="font-family:'Cinzel',serif; font-size:clamp(18px,4vw,26px); font-weight:600; color:var(--gold); line-height:1.3;">
+      It's "are you awake?"
+    </p>
+    <p style="font-size:14px; color:rgba(201,168,76,0.55); font-style:italic; margin-top:0.75rem; line-height:1.6;">
+      Jesus said that if we are awake, He would allow us to recognize the season.<br>
+      <span style="font-size:12px; opacity:0.8;">1 Thessalonians 5:4 · Revelation 3:3 · Mark 13:33</span>
+    </p>
+  </div>
+
+  <div class="main-target">
+    <p class="target-label">Counting down to</p>
+    <p class="target-event">The Abomination of Desolation</p>
+    <p class="target-ref">March 27–28, 2027 · Daniel 12:11 · Revelation 13</p>
+  </div>
+
+  <div class="countdown-single">
+    <span class="cd-num" id="cd-days">—</span>
+    <span class="cd-unit">Days Remaining</span>
+  </div>
+  <p class="today-line" id="today-line">—</p>
+  <p style="text-align:center; font-size:13px; color:rgba(201,168,76,0.45); font-style:italic; margin: -0.25rem 0 1.75rem; line-height:1.6; padding: 0 1rem;">
+    While none of us currently knows the precise day and hour,<br>
+    the appointed window is sundown March 27 through sundown March 28, 2027.<br>
+    <span style="font-size:12px; opacity:0.75;">On the Hebrew calendar, a day begins at sundown — and we are watching.</span>
+  </p>
+
+  <div class="gold-line"></div>
+
+  <section class="timeline-section">
+    <p class="section-label">The Appointed Times</p>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <div class="gold-line"></div>
+
+  <section class="links-section">
+    <p class="section-label">Go Deeper</p>
+    <div class="links-grid">
+      <a class="link-card" href="https://www.youtube.com/playlist?list=PLgVUI1kVoFR6Z1ExwkERSJ7GupgDZps6z" target="_blank" rel="noopener">
+        <div class="link-icon icon-yt">▶</div>
+        <div>
+          <div class="link-text-label">YouTube</div>
+          <div class="link-text-title">Watch the full teaching series</div>
+        </div>
+      </a>
+      <a class="link-card" href="https://www.amazon.com/dp/B0GW39SLNB" target="_blank" rel="noopener">
+        <div class="link-icon icon-amz">📖</div>
+        <div>
+          <div class="link-text-label">Amazon</div>
+          <div class="link-text-title">Get the book</div>
+        </div>
+      </a>
+    </div>
+
+    <div style="margin-top: 14px; border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; padding: 18px 20px; background: rgba(201,168,76,0.03); position: relative; overflow: hidden;">
+      <div style="position:absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);"></div>
+      <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 22px;">⧗</div>
+        <div style="flex: 1; min-width: 180px;">
+          <div style="font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; color: var(--parchment); margin-bottom: 3px;">Get the Chrome Extension</div>
+          <div style="font-size: 13px; color: rgba(201,168,76,0.55); font-style: italic; line-height: 1.4;">The countdown in your browser toolbar — every day, every tab.</div>
+        </div>
+        <a href="prophecy_extension.zip" download
+           style="font-family:'Cinzel',serif; font-size:12px; font-weight:600; letter-spacing:0.08em; background: var(--gold); color: var(--ink); padding: 9px 18px; border-radius: 3px; text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: opacity 0.2s;"
+           onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          Download Free
+        </a>
+      </div>
+      <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(201,168,76,0.08); font-size: 12px; color: rgba(201,168,76,0.35); font-style: italic; line-height: 1.6;">
+        After downloading: unzip the file → open Chrome → go to <span style="font-family: monospace; font-style: normal; font-size: 11px; background: rgba(201,168,76,0.08); padding: 1px 5px; border-radius: 2px;">chrome://extensions</span> → enable Developer Mode → click "Load unpacked" → select the folder.
+      </div>
+    </div>
+  </section>
+
+  <section class="email-section">
+    <h2 class="email-heading">Stay Informed as 2027 Approaches</h2>
+    <p class="email-sub">Receive updates, new teachings, and prophetic analysis direct to your inbox. No spam — only what matters.</p>
+    <div class="email-form" id="email-form">
+      <input class="email-input" type="email" id="email-input" placeholder="your@email.com" autocomplete="email">
+      <button class="email-btn" onclick="submitEmail()">Join the Watchmen</button>
+    </div>
+    <p class="email-privacy">Your email is never shared. Unsubscribe anytime.</p>
+    <div class="email-success" id="email-success">
+      ✦ You are now among the watchmen. Study. Pray. Prepare. ✦
+    </div>
+    <p style="font-size:11px; color:rgba(201,168,76,0.25); font-style:italic; margin-top:8px;">
+      ⚙ To activate email capture, connect this form to Mailchimp, ConvertKit, or any email service via their embed code or API.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <p>Based on <em>Teaching History Before It Happens</em> by C. Luke Humphreys</p>
+    <p style="margin-top:6px;">
+      <a href="mailto:info@plperoxide.com">info@plperoxide.com</a> ·
+      <a href="https://www.youtube.com/@purelife2030" target="_blank">YouTube: @purelife2030</a>
+    </p>
+    <p style="margin-top:10px; font-size:11px; opacity:0.6;">
+      "Surely the Lord GOD does nothing unless He reveals His secret counsel to His servants the prophets." — Amos 3:7
+    </p>
+  </footer>
+
+</div>
+
+<script>
+const milestones = [
+  {
+    date: new Date('2027-03-27'),
+    label: 'Mar 27–28\n2027',
+    title: 'Abomination of Desolation',
+    desc: 'The Antichrist revealed. 1,290-day count begins. The world polarizes.',
+    ref: 'Dan. 12:11 · Rev. 13',
+    dotClass: 'ab'
+  },
+  {
+    date: new Date('2027-04-27'),
+    label: 'Apr 27–28\n2027',
+    title: 'The Latter Rains Fall',
+    desc: 'Power given to the Two Witnesses. 1,260-day Tribulation begins.',
+    ref: 'Rev. 11:3 · Acts 1:8',
+    dotClass: 'rain'
+  },
+  {
+    date: new Date('2030-09-27'),
+    label: 'Sep 27–28\n2030',
+    title: 'Yom Teruah — Resurrection & Rapture',
+    desc: 'Day of Trumpets. The Resurrection, Rapture & Return. Year 6,001.',
+    ref: 'Lev. 23:24 · 1 Cor. 15:52',
+    dotClass: 'rapture'
+  },
+  {
+    date: new Date('2030-10-07'),
+    label: 'Oct 7–12\n2030',
+    title: 'Yom Kippur to Sukkot — Millennial Kingdom',
+    desc: 'The 1,000-year reign of Christ begins. Sukkot is the Feast of Ingathering — and the birthday of Jesus.',
+    ref: 'Dan. 12:2 · Rev. 20:4 · Lev. 23:34',
+    dotClass: 'kingdom',
+    rangeDays: 5
+  }
+];
+
+function daysUntil(d) {
+  return Math.ceil((d - new Date()) / 86400000);
+}
+
+function buildTimeline() {
+  const tl = document.getElementById('timeline');
+  const now = new Date();
+
+  const todayRow = document.createElement('div');
+  todayRow.className = 'milestone';
+  todayRow.innerHTML = `
+    <div class="ms-date" style="opacity:0.5; font-style:italic;">Today</div>
+    <div class="ms-dot today-dot"></div>
+    <div class="ms-content">
+      <div class="ms-title" style="font-size:14px; color:rgba(201,168,76,0.5);" id="today-full">—</div>
+    </div>`;
+  tl.appendChild(todayRow);
+
+  milestones.forEach(m => {
+    const days = daysUntil(m.date);
+    const past = m.date < now;
+    const row = document.createElement('div');
+    row.className = 'milestone';
+    row.innerHTML = `
+      <div class="ms-date">${m.label.replace('\n','<br>')}</div>
+      <div class="ms-dot ${m.dotClass}" style="${past ? 'opacity:0.35;' : ''}"></div>
+      <div class="ms-content">
+        <div class="ms-title" style="${past ? 'opacity:0.5;' : ''}">${m.title}</div>
+        <div class="ms-desc">${m.desc}</div>
+        <div class="ms-meta">
+          ${past
+            ? '<span style="opacity:0.5">Passed</span>'
+            : `<span class="ms-days">${Math.abs(days).toLocaleString()}${m.rangeDays ? '–' + (Math.abs(days) + m.rangeDays).toLocaleString() : ''} days away</span>`
+          }
+          &nbsp;·&nbsp; ${m.ref}
+        </div>
+      </div>`;
+    tl.appendChild(row);
+  });
+}
+
+function tick() {
+  const now = new Date();
+  const target = new Date('2027-03-27T00:00:00');
+  const diff = target - now;
+
+  const todayStr = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  const tl = document.getElementById('today-line');
+  const tf = document.getElementById('today-full');
+  if (tl) tl.textContent = todayStr;
+  if (tf) tf.textContent = todayStr;
+
+  if (diff > 0) {
+    document.getElementById('cd-days').textContent = Math.floor(diff / 86400000).toLocaleString();
+  } else {
+    document.getElementById('cd-days').textContent = '0';
+  }
+}
+
+function submitEmail() {
+  const val = document.getElementById('email-input').value.trim();
+  if (!val || !val.includes('@')) {
+    document.getElementById('email-input').focus();
+    return;
+  }
+  document.getElementById('email-form').style.display = 'none';
+  document.getElementById('email-success').style.display = 'block';
+  // TODO: wire to your email service (Mailchimp, ConvertKit, etc.)
+  // fetch('/subscribe', { method:'POST', body: JSON.stringify({email: val}) })
+}
+
+document.getElementById('email-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitEmail();
+});
+
+buildTimeline();
+tick();
+setInterval(tick, 60000);
+</script>
+</body>
+</html>
