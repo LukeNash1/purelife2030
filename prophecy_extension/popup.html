@@ -264,6 +264,52 @@
 
 </div>
 
-<script src="popup.js"></script>
+<script>
+const milestones = [
+  { date: new Date('2027-03-27'), label: 'Mar 27–28, 2027', title: 'Abomination of Desolation', dot: 'dot-ab' },
+  { date: new Date('2027-04-27'), label: 'Apr 27–28, 2027', title: 'The Latter Rains Fall', dot: 'dot-rain' },
+  { date: new Date('2030-09-27'), label: 'Sep 27–28, 2030', title: 'Yom Teruah — Resurrection & Rapture', dot: 'dot-rapture' },
+  { date: new Date('2030-10-07'), label: 'Oct 7–12, 2030', title: 'Yom Kippur to Sukkot — Millennial Kingdom', dot: 'dot-kingdom' }
+];
+
+function daysUntil(d) {
+  return Math.floor((d - new Date()) / 86400000);
+}
+
+function buildMilestones() {
+  const now = new Date();
+  const el = document.getElementById('milestones');
+  el.innerHTML = '';
+  milestones.forEach(m => {
+    const days = daysUntil(m.date);
+    const past = m.date < now;
+    const row = document.createElement('div');
+    row.className = 'milestone';
+    row.innerHTML = `
+      <div class="ms-dot ${m.dot}" style="${past ? 'opacity:0.3;' : ''}"></div>
+      <div class="ms-body">
+        <div class="ms-title" style="${past ? 'opacity:0.4;' : ''}">
+          ${m.title}
+          ${!past ? `<span class="ms-days">${days.toLocaleString()}d</span>` : ''}
+        </div>
+        <div class="ms-date">${m.label}</div>
+      </div>`;
+    el.appendChild(row);
+  });
+}
+
+function tick() {
+  const now = new Date();
+  const target = new Date('2027-03-27T00:00:00');
+  const diff = Math.floor((target - now) / 86400000);
+  document.getElementById('cd-days').textContent = diff > 0 ? diff.toLocaleString() : '0';
+  document.getElementById('today-line').textContent =
+    now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+}
+
+buildMilestones();
+tick();
+setInterval(tick, 60000);
+</script>
 </body>
 </html>
